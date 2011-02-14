@@ -14,7 +14,7 @@ namespace :test do
     Dir['test/rails*'].each do |dir|
       Dir.chdir(dir) do
         system "bundle install" if `bundle check` and not $?.success?
-        `rake db:migrate`
+        system "rake db:migrate"
       end
     end
   end
