@@ -4,9 +4,6 @@ class TestRails3Integration < Test::Unit::TestCase
   def setup
     @original_wd = Dir.getwd
     Dir.chdir(File.join(File.dirname(__FILE__), 'rails3'))
-    # Make sure the rails app's dependencies are satisfied
-    system "bundle install" unless `bundle check` and $?.success?
-    `rake db:migrate`
   end
   
   def teardown
