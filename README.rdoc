@@ -1,0 +1,5 @@
+= Transactionata
+
+Transactional dynamic test data for rails
+
+TODO...
