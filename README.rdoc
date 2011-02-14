@@ -2,4 +2,61 @@
 
 Transactional dynamic test data for rails
 
-TODO...
+== Synopsis
+
+Fixture replacements like Factory Girl are great, but when you have to set up complex test data
+or use Shoulda and your test records are created for each should block, you'll get a huge performance
+hit.
+
+Rails' Fixtures are loaded only once and then rolled back via database transaction after every test - why
+not leverage this for your Factory-built test data as well? Transactionata allows you to do so:
+
+  class UserTest < ActiveSupport::TestCase
+    test_data do
+      Factory.create(:user, :login => 'colszowka')
+    end
+    
+    should "destroy a User" do
+      assert User.find_by_login('colszowka').destroy
+    end
+  
+    should "have a User" do
+      assert User.find_by_login('colszowka')
+    end
+    
+    context "The User" do
+      subject { @user ||= User.find_by_login!('colszowka') }
+      
+      should "not be a new record" do
+        assert !@user.new_record?
+      end
+    end
+  end
+  
+This will run the code block given to test_data when Fixtures are loaded and 'protect' the data using
+transactions, just like Fixtures do, giving you huge performance gains if you're using factories a lot.
+
+For the (FactoryGirl/Shoulda-heavy) Ruby Toolbox 2 test suite, the time for a complete test run went from 5 minutes
+to 50 seconds by just moving test data generation into centralized blocks for each test case using Transactionata.
+
+== Usage
+
+Add it to your Gemfile and bundle install.
+
+  gem 'transactionata', :group => :test
+
+Then move test data generation to a test_data block as shown above, using finders instead of creating the records
+in the setup/subject blocks.
+
+Of course, all of this is completely applicable to default Ruby/Rails unit tests, you don't have to use Shoulda for
+transactional data setup to work.
+
+== Compatibility
+
+Transactionata's test suite runs against Rails 2.3.10 and 3.0.4 on Ruby 1.9.2, 1.8.7 and REE. Since no black magic is
+involved, it should work on other platforms and versions as well.
+
+
+== Copyright
+
+Copyright (c) 2011 Christoph Olszowka. See LICENSE for details.

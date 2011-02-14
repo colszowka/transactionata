@@ -3,6 +3,8 @@
 Gemfile.lock
 pkg/*
 
+doc
+rdoc
 db
 log
 tmp
