@@ -33,8 +33,8 @@ not leverage this for your Factory-built test data as well? Transactionata allow
     end
   end
   
-This will run the code block given to test_data when Fixtures are loaded and 'protect' the data using
-transactions, just like Fixtures do, giving you huge performance gains if you're using factories a lot.
+This will run the code block given to test_data alongside Fixtures and therefore 'protect' your data using Rails
+built-in fixture transactions, giving you huge performance gains if you're using factories a lot.
 
 For the (FactoryGirl/Shoulda-heavy) Ruby Toolbox 2 test suite, the time for a complete test run went from 5 minutes
 to 50 seconds by just moving test data generation into centralized blocks for each test case using Transactionata.
@@ -50,6 +50,9 @@ in the setup/subject blocks.
 
 Of course, all of this is completely applicable to default Ruby/Rails unit tests, you don't have to use Shoulda for
 transactional data setup to work.
+
+Please note that you'll have to have fixture files for the models you're using transactionata for. They can be empty,
+but they have to be in place so Rails' Fixture loading mechanism will purge the database tables between multiple test cases.
 
 == Compatibility
 
