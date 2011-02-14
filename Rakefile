@@ -15,6 +15,7 @@ namespace :test do
       Dir.chdir(dir) do
         system "bundle install" if `bundle check` and not $?.success?
         system "rake db:migrate"
+        system "rake db:test:clone_structure"
       end
     end
   end
