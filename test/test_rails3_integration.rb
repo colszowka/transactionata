@@ -17,7 +17,7 @@ class TestRails3Integration < Test::Unit::TestCase
     test_suite_output = `rake test`
     exit_status = $?
     
-    assert exit_status.success?, "Rails 3 app's test suite should pass!"
+    assert exit_status.success?, "Rails 3 app's test suite should pass! Output was: #{test_suite_output}"
     
     assert_equal 1, test_suite_output.scan(/Loading test data in PostTest/).length
     assert_equal 1, test_suite_output.scan(/Loading test data in PostsControllerTest/).length
