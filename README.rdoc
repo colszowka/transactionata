@@ -28,7 +28,7 @@ not leverage this for your Factory-built test data as well? Transactionata allow
       subject { @user ||= User.find_by_login!('colszowka') }
       
       should "not be a new record" do
-        assert !@user.new_record?
+        assert !subject.new_record?
       end
     end
   end
