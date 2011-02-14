@@ -33,4 +33,6 @@ module Transactionata
   end
 end
 
-ActiveSupport::TestCase.send :extend, Transactionata
+if defined?(ActiveSupport::TestCase)
+  ActiveSupport::TestCase.send :extend, Transactionata
+end

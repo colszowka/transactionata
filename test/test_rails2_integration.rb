@@ -1,10 +1,10 @@
 require 'helper'
 
-class TestRails3Integration < Test::Unit::TestCase
+class TestRails2Integration < Test::Unit::TestCase
   def setup
     ENV['BUNDLE_GEMFILE'] = nil # Bundler confuses the rake test task...
     @original_wd = Dir.getwd
-    Dir.chdir(File.join(File.dirname(__FILE__), 'rails3'))
+    Dir.chdir(File.join(File.dirname(__FILE__), 'rails2'))
   end
   
   def teardown
@@ -14,8 +14,8 @@ class TestRails3Integration < Test::Unit::TestCase
   def test_passing_rails3_test_suite
     test_suite_output = `rake test`
     exit_status = $?
-    
-    assert exit_status.success?, "Rails 3 app's test suite should pass! Output was: #{test_suite_output}"
+
+    assert exit_status.success?, "Rails 2 app's test suite should pass! Output was: #{test_suite_output}"
     
     assert_equal 1, test_suite_output.scan(/Loading test data in PostTest/).length
     assert_equal 1, test_suite_output.scan(/Loading test data in PostsControllerTest/).length
