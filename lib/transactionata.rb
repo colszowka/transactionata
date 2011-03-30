@@ -23,8 +23,9 @@ module Transactionata
         attr_accessor :test_data_block
       end
       
+      alias_method :original_load_fixtures, :load_fixtures
       def load_fixtures
-        super
+        original_load_fixtures
         self.class.test_data_block.call
         Fixtures.reset_cache # Required to enforce purging tables for every test file
       end

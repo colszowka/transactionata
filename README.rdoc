@@ -14,6 +14,7 @@ not leverage this for your Factory-built test data as well? Transactionata allow
   class UserTest < ActiveSupport::TestCase
     test_data do
       Factory.create(:user, :login => 'colszowka')
+      # super-complex, time consuming, web-service-hooked-up test data setup continues
     end
     
     should "destroy a User" do
@@ -56,7 +57,7 @@ but they have to be in place so Rails' Fixture loading mechanism will purge the 
 
 == Compatibility
 
-Transactionata's test suite runs against Rails 2.3.10 and 3.0.4 on Ruby 1.9.2, 1.8.7 and REE. Since no black magic is
+Transactionata's test suite currently runs against Rails 2.3.10 and 3.0.4 on Ruby 1.9.2, 1.8.7 and REE. Since no black magic is
 involved, it should work on other platforms and versions as well.
 
 

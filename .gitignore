@@ -3,6 +3,7 @@
 Gemfile.lock
 pkg/*
 
+.yardoc
 doc
 rdoc
 db
