@@ -11,7 +11,7 @@ class TestRails2Integration < Test::Unit::TestCase
     Dir.chdir @original_wd
   end
   
-  def test_passing_rails3_test_suite
+  def test_passing_rails2_test_suite
     test_suite_output = `rake test`
     exit_status = $?
 

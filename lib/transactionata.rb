@@ -27,7 +27,12 @@ module Transactionata
       def load_fixtures
         original_load_fixtures
         self.class.test_data_block.call
-        Fixtures.reset_cache # Required to enforce purging tables for every test file
+        
+        if defined?(ActiveRecord::Fixtures) # Rails 3.1
+          ActiveRecord::Fixtures.reset_cache
+        else
+          Fixtures.reset_cache # Required to enforce purging tables for every test file
+        end
       end
     end
     self.test_data_block = blk
