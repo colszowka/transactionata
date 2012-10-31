@@ -1,6 +1,6 @@
 = Transactionata
 
-Transactional dynamic test data for rails
+Transactional dynamic test data for rails, forked for easy porting from existing machinist tests
 
 == Synopsis
 
@@ -15,6 +15,8 @@ not leverage this for your Factory-built test data as well? Transactionata allow
     test_data do
       Factory.create(:user, :login => 'colszowka')
       # super-complex, time consuming, web-service-hooked-up test data setup continues
+      # Awkward mix of fixture generating frameworks to demonstrate instance variable carrying
+      @alternate_user = User.make(:login => 'bob@loblaw.com')
     end
     
     should "destroy a User" do
@@ -23,10 +25,19 @@ not leverage this for your Factory-built test data as well? Transactionata allow
   
     should "have a User" do
       assert User.find_by_login('colszowka')
+      assert_equal 'bob@loblaw.com', @alternate_user.login
     end
     
     context "The User" do
       subject { @user ||= User.find_by_login!('colszowka') }
+      
+      should "not be a new record" do
+        assert !subject.new_record?
+      end
+    end
+    
+    context "The alternate User" do
+      subject { @alternate_user }
       
       should "not be a new record" do
         assert !subject.new_record?
