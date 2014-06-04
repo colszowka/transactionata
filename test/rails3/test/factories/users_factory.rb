@@ -1,7 +1,9 @@
-Factory.define :user do |u|
-  u.name "Some User"
-  u.login { "user_1" }
-  u.email {|f| "#{f.login}@example.com" }
-  u.password "someweirdpassword"
-  u.password_confirmation "someweirdpassword"
+FactoryGirl.define do
+  factory :user do
+    name "Some User"
+    login { "user_1" }
+    email { "#{login}@example.com" }
+    password "someweirdpassword"
+    password_confirmation "someweirdpassword"
+  end
 end

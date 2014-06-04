@@ -4,9 +4,9 @@ class PostsControllerTest < ActionController::TestCase
   test_data do
     puts "Loading test data in #{self}"
     15.times do
-      Factory.create(:post)
+      FactoryGirl.create(:post)
     end
-    Factory.create(:post, :title => "Foobar")
+    FactoryGirl.create(:post, :title => "Foobar")
   end
   
   setup do

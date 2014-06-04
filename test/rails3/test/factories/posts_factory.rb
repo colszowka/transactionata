@@ -1,4 +1,6 @@
-Factory.define :post do |p|
-  p.title "Another great post"
-  p.body  "Some text for another great post"
+FactoryGirl.define do
+  factory :post do
+    title "Another great post"
+    body  "Some text for another great post"
+  end
 end
