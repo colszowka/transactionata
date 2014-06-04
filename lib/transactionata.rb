@@ -29,7 +29,8 @@ module Transactionata
       
       alias_method :original_load_fixtures, :load_fixtures
       def load_fixtures
-        original_load_fixtures
+        # We need to return the value of the original load_fixtures method, so that all the fixtures magic works
+        hash = original_load_fixtures
         existing_klass_instance_vars = self.class.instance_variables
         self.class.test_data_block.call
         @@test_data_vars = (self.class.instance_variables - existing_klass_instance_vars)
@@ -39,6 +40,7 @@ module Transactionata
         else
           Fixtures.reset_cache # Required to enforce purging tables for every test file
         end
+        hash
       end
       
       def load_test_data_vars
