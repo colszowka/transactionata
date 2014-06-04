@@ -2,6 +2,11 @@
 
 Transactional dynamic test data for rails, forked for easy porting from existing machinist tests
 
+== Reason for Fork
+
+The main reason was to be able to use fixtures in the code, as well as FactoryGirl.
+I forked from asee's fork, because that allows the FactoryGirl objects to be accessible from instance variables in the tests.
+
 == Synopsis
 
 Fixture replacements like Factory Girl are great, but when you have to set up complex test data
