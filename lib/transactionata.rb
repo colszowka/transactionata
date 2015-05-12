@@ -34,8 +34,10 @@ module Transactionata
         existing_klass_instance_vars = self.class.instance_variables
         self.class.test_data_block.call
         @@test_data_vars = (self.class.instance_variables - existing_klass_instance_vars)
-        
-        if defined?(ActiveRecord::Fixtures) # Rails 3.1
+
+        if defined?(ActiveRecord::FixtureSet) # Rails 4
+          ActiveRecord::FixtureSet.reset_cache
+        elsif defined?(ActiveRecord::Fixtures) # Rails 3.1
           ActiveRecord::Fixtures.reset_cache
         else
           Fixtures.reset_cache # Required to enforce purging tables for every test file
