@@ -75,6 +75,7 @@ but they have to be in place so Rails' Fixture loading mechanism will purge the 
 
 Transactionata's test suite currently runs against Rails 2.3.10 and 3.0.4 on Ruby 1.9.2, 1.8.7 and REE. Since no black magic is
 involved, it should work on other platforms and versions as well.
+It should also work on Rails 4.0.0.
 
 
 == Copyright
