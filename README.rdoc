@@ -1,6 +1,11 @@
 = Transactionata
 
-Transactional dynamic test data for rails
+Transactional dynamic test data for rails, forked for easy porting from existing machinist tests
+
+== Reason for Fork
+
+The main reason was to be able to use fixtures in the code, as well as FactoryGirl.
+I forked from asee's fork, because that allows the FactoryGirl objects to be accessible from instance variables in the tests.
 
 == Synopsis
 
@@ -15,6 +20,8 @@ not leverage this for your Factory-built test data as well? Transactionata allow
     test_data do
       Factory.create(:user, :login => 'colszowka')
       # super-complex, time consuming, web-service-hooked-up test data setup continues
+      # Awkward mix of fixture generating frameworks to demonstrate instance variable carrying
+      @alternate_user = User.make(:login => 'bob@loblaw.com')
     end
     
     should "destroy a User" do
@@ -23,10 +30,19 @@ not leverage this for your Factory-built test data as well? Transactionata allow
   
     should "have a User" do
       assert User.find_by_login('colszowka')
+      assert_equal 'bob@loblaw.com', @alternate_user.login
     end
     
     context "The User" do
       subject { @user ||= User.find_by_login!('colszowka') }
+      
+      should "not be a new record" do
+        assert !subject.new_record?
+      end
+    end
+    
+    context "The alternate User" do
+      subject { @alternate_user }
       
       should "not be a new record" do
         assert !subject.new_record?
@@ -59,6 +75,7 @@ but they have to be in place so Rails' Fixture loading mechanism will purge the 
 
 Transactionata's test suite currently runs against Rails 2.3.10 and 3.0.4 on Ruby 1.9.2, 1.8.7 and REE. Since no black magic is
 involved, it should work on other platforms and versions as well.
+It should also work on Rails 4.1.0. It will not work on Rails 4.0.0 because the load_fixtures method now takes a config argument.
 
 
 == Copyright

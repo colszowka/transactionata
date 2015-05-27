@@ -3,17 +3,17 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   test_data do
     puts "Loading test data in #{self}"
-    user = Factory.create(:user, :login => 'testuser')
+    user = FactoryGirl.create(:user, :login => 'testuser')
     
     5.times do
-      Factory.create(:post, :user => user)
+      FactoryGirl.create(:post, :user => user)
     end
   end
 
   should have_many(:posts)
 
   should "create properly from Factory" do
-    assert user = Factory.create(:user)
+    assert user = FactoryGirl.create(:user)
   end
   
   should "delete all" do

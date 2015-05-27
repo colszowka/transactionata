@@ -4,9 +4,9 @@ class PostTest < ActiveSupport::TestCase
   test_data do
     puts "Loading test data in #{self}"
     10.times do 
-      Factory.create(:post)
+      FactoryGirl.create(:post)
     end
-    Factory.create(:post, :title => "Foobar")
+    FactoryGirl.create(:post, :title => "Foobar")
   end
 
   should belong_to(:user)
@@ -15,7 +15,14 @@ class PostTest < ActiveSupport::TestCase
   should "have 13 Posts existing" do
     assert_equal 13, Post.count
   end
-  
+
+  # This test ensures that existing fixtures work
+  should "be able to access fixtures" do
+    assert_nothing_raised do
+      posts(:one)
+    end
+  end
+
   should "delete 5 posts" do
     5.times { assert Post.last.delete }
   end

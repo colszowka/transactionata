@@ -3,9 +3,9 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   test_data do
     puts "Loading test data in #{self}"    
-    Factory.create(:user, :login => 'colszowka')
+    FactoryGirl.create(:user, :login => 'colszowka')
     8.times do
-      Factory.create(:user)
+      FactoryGirl.create(:user)
     end
   end
   
