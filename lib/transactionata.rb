@@ -5,7 +5,7 @@ module Transactionata
   # without the speed drop.
   #
   # Please note that you'll have to set up empty fixture files (and load them, see
-  # the list of fixtures above) in order to clean up the database before you launch 
+  # the list of fixtures above) in order to clean up the database before you launch
   # your tests.
   #
   # Usage: In your test class, do:
@@ -22,12 +22,12 @@ module Transactionata
       class << self
         attr_accessor :test_data_block
       end
-      
+
       alias_method :original_load_fixtures, :load_fixtures
-      def load_fixtures
-        original_load_fixtures
+      def load_fixtures(config = ActiveRecord::Base)
+        original_load_fixtures(config)
         self.class.test_data_block.call
-        
+
         if defined?(ActiveRecord::Fixtures) # Rails 3.1
           ActiveRecord::Fixtures.reset_cache
         else
